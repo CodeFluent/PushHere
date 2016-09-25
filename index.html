@@ -24,10 +24,53 @@
         <h1>
             Hello, please input something.
         </h1>
+        <form action="" method="post">
 
-        <textarea class="form-control" rows="3" placeholder="Hi"></textarea>
+
+        <textarea class="form-control" rows="3" placeholder="Hi" name="text"></textarea>
+
+        <div style="margin-top:30px;">
+            <input type="submit" />
+            </form>
+
+            <pre id="result">
+            </pre>
+
+        </div>
 
     </div>
+
+    <script>
+        $.fn.serializeObject = function()
+            {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+            };
+
+            $(function() {
+            $('form').submit(function() {
+                $('#result').text(JSON.stringify($('form').serializeObject()));
+                return false;
+
+
+                });
+
+
+            });
+
+
+    </script>
 
 </body>
 </html>
